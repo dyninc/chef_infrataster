@@ -7,8 +7,9 @@ This repository is a demonstration of how to use `chef-provisioning` to provisio
   * Vagrant
 
 # Usage
-`bundle install`
-`rake test`
+
+    bundle install
+    rake test
 
 # What it does
 
