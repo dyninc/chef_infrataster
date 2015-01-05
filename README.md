@@ -8,7 +8,6 @@ This repository is a demonstration of how to use `chef-provisioning` to provisio
 
 # Usage
 `bundle install`
-
 `rake test`
 
 # What it does
