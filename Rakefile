@@ -49,7 +49,12 @@ end
 
 desc "Provision a vagrant VM and run tests against it"
 task :test => ["provision:vagrant"] do
-  sh 'rspec spec/infrataster/*_spec.rb'
+  sh 'rspec spec/infrataster/single_spec.rb'
+end
+
+desc "Provision a cluster of vagrant VMs and run tests against it"
+task :test_cluster => ["provisioncluster:vagrant"] do
+  sh 'rspec spec/infrataster/cluster_spec.rb'
 end
 
 namespace :provision do
@@ -59,7 +64,27 @@ namespace :provision do
                          "provision",
                          "repo")
     if File.exist? repopath
-      sh 'chef-client -z provision/vagrant.rb provision/provision.rb -c provision/client.rb'
+      sh 'chef-client -z provision/vagrant.rb provision/single.rb -c provision/client.rb'
+    else
+      puts "#{repopath} does not exist (run rake generate maybe?)"
+      exit 1
+    end
+  end
+
+  desc "Destroy an test environment created by chef-provisioning"
+  task :destroy do
+    sh 'chef-client -z provision/destroy.rb -c provision/client.rb'
+  end
+end
+
+namespace :provisioncluster do
+  desc "Use chef-provisioning to deploy a test cluster under vagrant"
+  task :vagrant do
+    repopath = File.join(File.dirname(__FILE__),
+                         "provision",
+                         "repo")
+    if File.exist? repopath
+      sh 'chef-client -z provision/vagrant.rb provision/cluster.rb -c provision/client.rb'
     else
       puts "#{repopath} does not exist (run rake generate maybe?)"
       exit 1

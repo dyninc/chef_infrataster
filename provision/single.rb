@@ -3,7 +3,7 @@ require 'chef/provisioning'
 machine_batch 'master' do
   machine 'provisiontest' do
     run_list [
-      'recipe[chef_infrataster::default]'
+      'recipe[chef_infrataster::server]'
     ]
     add_machine_options :vagrant_options => {
       'vm.hostname' => 'provisiontest'

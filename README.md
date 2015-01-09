@@ -7,10 +7,22 @@ This repository is a demonstration of how to use `chef-provisioning` to provisio
   * Vagrant
 
 # Usage
+## Common
 
     bundle install
     rake generate
+
+## One Test VM
+
     rake test
+
+## Three Test VMs (two servers, one client)
+
+    rake test_cluster
+
+## Updating recipes and retesting
+
+If you make an alteration to the recipes in the `recipes/` folder or include a new cookbook in the Berksfile you must run `rake update` to update the cookbooks in the test environment.
 
 # What it does
 
