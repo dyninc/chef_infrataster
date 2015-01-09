@@ -2,6 +2,21 @@
 
 This repository is a demonstration of how to use `chef-provisioning` to provision a VM with `vagrant` and then use `infrataster` to run a test against it.
 
+    server 'server1'
+      http 'http://192.168.20.10/' with {:params=>{}, :method=>:get, :headers=>{}}
+        responds with 200
+    
+    server 'server2'
+      http 'http://192.168.20.11/' with {:params=>{}, :method=>:get, :headers=>{}}
+        responds with 200
+    
+    server 'testclient'
+      can wget from server1
+      can wget from server2
+    
+    Finished in 1.84 seconds (files took 0.54254 seconds to load)
+    4 examples, 0 failures
+
 # Requirements
   * Ruby (tested with 1.9.3)
   * Vagrant
